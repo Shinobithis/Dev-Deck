@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import FlashCards from './components/FlashCards'
+import Greetings from './components/Greetingd';
+import ProfileCard from './components/ProfileCard';
+import ProductCard from './components/ProductCard';
 import './App.css'
 
 function App() {
@@ -52,6 +55,13 @@ function App() {
           />
         ))
       }
+      <Greetings />
+      <h1>Profile</h1>
+      <ProfileCard name="yassir" spec="dev" desc="description"/>
+      <ProfileCard name="Ali" spec="Buisness" desc="description"/>
+      <ProfileCard name="Ahmed" spec="Managment" desc="description"/>
+      <h1>Product</h1>
+      <ProductCard name="Telephone" price="500" desc="description"/>
     </div>
   )
 }
