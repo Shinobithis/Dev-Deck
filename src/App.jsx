@@ -1,8 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import FlashCards from './components/FlashCards'
-import Greetings from './components/Greetingd';
-import ProfileCard from './components/ProfileCard';
-import ProductCard from './components/ProductCard';
 import './App.css'
 
 function App() {
@@ -12,12 +9,19 @@ function App() {
   const [cards, setCards] = useState([]);
 
   function handleSave() {
-    const newCard = {"question": question, "answer": answer};
+    const newCard = {"id": Date.now(), "question": question, "answer": answer};
     setCards([...cards, newCard])
     setQuestion("");
     setAnswer("");
   }
+
   function handleShow() {
+    setShow(!show);
+  }
+
+  function handleDelete(id) {
+    const newCards = cards.filter(card => card.id !== id);
+    setCards(newCards);
     setShow(!show);
   }
   
@@ -47,11 +51,13 @@ function App() {
       </button>
       <br />
       {
-        show && cards.map((card, index) => (
+        show && cards.map((card) => (
           <FlashCards 
-            key={index}
+            key={card.id}
             question={card.question} 
-            answer={card.answer} 
+            answer={card.answer}
+            id={card.id}
+            delete={handleDelete}
           />
         ))
       }
