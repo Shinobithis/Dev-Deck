@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import FlashCards from './components/FlashCards'
+import Increase from './components/Increase'
+import Car from './components/Car'
 import './App.css'
 
 function App() {
@@ -7,6 +9,10 @@ function App() {
   const [answer, setAnswer] = useState("");
   const [show, setShow] = useState(false);
   const [cards, setCards] = useState([]);
+
+  function hello(param) {
+    alert(`Hello from ${param}`);
+  }
 
   function handleSave() {
     const newCard = {"id": Date.now(), "question": question, "answer": answer};
@@ -61,6 +67,8 @@ function App() {
           />
         ))
       }
+      <Increase />
+      <Car carName="App" onCarClick={hello} />
     </div>
   )
 }
