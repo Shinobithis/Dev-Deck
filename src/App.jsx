@@ -1,20 +1,38 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import FlashCards from './components/FlashCards'
 import Increase from './components/Increase'
 import Car from './components/Car'
 import './App.css'
+import axios from 'axios'
 
 function App() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [show, setShow] = useState(false);
   const [cards, setCards] = useState([]);
+  const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     age: '',
     pw: '',
   });
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const response = await axios.get('http://localhost:3002/students');
+        setStudents(response.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStudents();
+  }, []);
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -49,6 +67,8 @@ function App() {
     setCards(newCards);
     setShow(!show);
   }
+
+  if (loading) return <p>Loading...</p>;
   
   return (
     <div>
@@ -104,6 +124,14 @@ function App() {
         <br />
         <button type='submit'>Submit</button>
       </form>
+
+      <h1>Liste</h1>
+      {students.map(student => (
+        <div key={student.id} >
+          <p>Name: {student.name}</p>
+          <p>Age: {student.age}</p>
+        </div>
+      ))}
     </div>
   )
 }
