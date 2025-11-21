@@ -18,7 +18,7 @@ function Form() {
             <label htmlFor="email">Email: </label>
             <input {...register('email', { required: "Email is required" })}/>
             <br />
-            {errors.email && <span>{errors.name.message}</span>}
+            {errors.email && <span>{errors.name}</span>}
             <br />
             <button type='submit'>Submit</button>
         </form>
